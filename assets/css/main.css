@@ -2188,6 +2188,7 @@ input, select, textarea {
 			}
 
 		.image.avatar {
+			aspect-ratio: 1 / 1;
 			border-radius: 100%;
 			overflow: hidden;
 		}
@@ -2195,6 +2196,8 @@ input, select, textarea {
 			.image.avatar img {
 				border-radius: 100%;
 				display: block;
+				height: 100%;
+				object-fit: cover;
 				width: 100%;
 			}
 
@@ -2506,6 +2509,31 @@ input, select, textarea {
 
 /* Button */
 
+	.copy-email-control {
+		align-items: center;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75em;
+		margin: -1.5em 0 2.25em 0;
+	}
+
+		#copy-email {
+			display: inline-block;
+			height: auto;
+			line-height: 1.5;
+			margin: 0;
+			min-width: max-content;
+			padding: 0.65em 1.25em;
+			width: auto;
+		}
+
+		#copy-email-status {
+			color: #777;
+			font-size: 0.85em;
+			line-height: 1.5;
+			min-height: 1.5em;
+		}
+
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"],
@@ -2672,6 +2700,7 @@ input, select, textarea {
 
 			.features article .image img {
 				display: block;
+				height: auto;
 				width: 100%;
 			}
 
@@ -3315,8 +3344,8 @@ input, select, textarea {
 
 	}
 
-/* Íconos personalizados con fondo verde */
-.icon.solid {
+/* Íconos personalizados de la sección de tecnologías. */
+ul.feature-icons .icon.solid {
 	background: #3fc6a7;
 	color: white;
 	border-radius: 100%;
@@ -3327,7 +3356,14 @@ input, select, textarea {
 	height: 3em;
 	margin-right: 0.75em;
 	font-size: 1.25em;
-  }
+}
+
+@media screen and (max-width: 480px) {
+	.copy-email-control {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+}
 
 /* Keyboard focus and reduced motion. */
 a:focus-visible,

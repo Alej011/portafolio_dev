@@ -726,12 +726,15 @@
 		}
 
 		&.avatar {
+			aspect-ratio: 1 / 1;
 			border-radius: 100%;
 			overflow: hidden;
 
 			img {
 				border-radius: 100%;
 				display: block;
+				height: 100%;
+				object-fit: cover;
 				width: 100%;
 			}
 		}
@@ -890,6 +893,19 @@
 		list-style: none;
 		padding-left: 0;
 
+		.icon.solid {
+			align-items: center;
+			background: #3fc6a7;
+			border-radius: 100%;
+			color: white;
+			display: inline-flex;
+			font-size: 1.25em;
+			height: 3em;
+			justify-content: center;
+			margin-right: 0.75em;
+			width: 3em;
+		}
+
 		li {
 			@include icon;
 			display: inline-block;
@@ -1016,6 +1032,31 @@
 
 /* Button */
 
+	.copy-email-control {
+		align-items: center;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75em;
+		margin: -1.5em 0 2.25em 0;
+	}
+
+		#copy-email {
+			display: inline-block;
+			height: auto;
+			line-height: 1.5;
+			margin: 0;
+			min-width: max-content;
+			padding: 0.65em 1.25em;
+			width: auto;
+		}
+
+		#copy-email-status {
+			color: #777;
+			font-size: 0.85em;
+			line-height: 1.5;
+			min-height: 1.5em;
+		}
+
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"],
@@ -1128,10 +1169,11 @@
 				vertical-align: middle;
 				width: 48%;
 
-				img {
-					display: block;
-					width: 100%;
-				}
+			img {
+				display: block;
+				height: auto;
+				width: 100%;
+			}
 			}
 
 			.inner {
@@ -1826,6 +1868,13 @@
 				padding: 0;
 			}
 
+	}
+
+	@include breakpoint('<=xsmall') {
+		.copy-email-control {
+			align-items: flex-start;
+			flex-direction: column;
+		}
 	}
 /* Keyboard focus and reduced motion. */
 a:focus-visible,

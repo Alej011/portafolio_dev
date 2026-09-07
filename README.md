@@ -23,7 +23,6 @@ Commons Attribution 3.0 incluida en [LICENSE.txt](LICENSE.txt).
 - JavaScript
 - jQuery
 - Font Awesome
-- Gulp
 - Git y GitHub
 - Python, Node.js, Express.js y Docker como tecnologías complementarias
 - MySQL y PostgreSQL
@@ -32,7 +31,9 @@ Commons Attribution 3.0 incluida en [LICENSE.txt](LICENSE.txt).
 ## Ejecutar localmente
 
 El proyecto es un sitio estático y no requiere un proceso de compilación para
-visualizar la versión disponible en este repositorio.
+visualizar la versión disponible en este repositorio. El CSS compilado está
+incluido en `assets/css/main.css`; el repositorio no contiene actualmente una
+configuración automatizada para recompilar `assets/sass/main.scss`.
 
 1. Clona el repositorio y entra en su carpeta:
 

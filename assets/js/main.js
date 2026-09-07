@@ -188,6 +188,50 @@
 					$header._hide();
 			});
 
+			var $copyEmail = $('#copy-email'),
+				$copyEmailStatus = $('#copy-email-status'),
+				copyEmailStatusTimer = null;
+
+			function showCopyEmailStatus(message) {
+				window.clearTimeout(copyEmailStatusTimer);
+				$copyEmailStatus.text(message);
+				copyEmailStatusTimer = window.setTimeout(function() {
+					$copyEmailStatus.text('');
+				}, 3000);
+			}
+
+			function copyEmailFallback(email) {
+				var $input = $('<textarea>').val(email).css({
+					position: 'fixed',
+					left: '-9999px'
+				}).appendTo($body);
+
+				try {
+					$input[0].select();
+					return document.execCommand('copy');
+				} catch (error) {
+					return false;
+				} finally {
+					$input.remove();
+				}
+			}
+
+			$copyEmail.on('click', function() {
+				var email = $copyEmail.data('email');
+
+				if (navigator.clipboard && window.isSecureContext) {
+					navigator.clipboard.writeText(email)
+						.then(function() {
+							showCopyEmailStatus('Correo copiado.');
+						})
+						.catch(function() {
+							showCopyEmailStatus(copyEmailFallback(email) ? 'Correo copiado.' : 'No se pudo copiar el correo.');
+						});
+				} else {
+					showCopyEmailStatus(copyEmailFallback(email) ? 'Correo copiado.' : 'No se pudo copiar el correo.');
+				}
+			});
+
 	// Scrolly.
 		$('.scrolly').scrolly({
 			speed: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1000,
