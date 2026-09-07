@@ -3328,4 +3328,24 @@ input, select, textarea {
 	margin-right: 0.75em;
 	font-size: 1.25em;
   }
-  
+
+/* Keyboard focus and reduced motion. */
+a:focus-visible,
+#titleBar .toggle:focus-visible {
+	outline: 3px solid #155e50;
+	outline-offset: 3px;
+}
+
+#header a:focus-visible,
+#titleBar .toggle:focus-visible {
+	outline-color: #222;
+	outline-offset: -3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation: none !important;
+		transition: none !important;
+		scroll-behavior: auto !important;
+	}
+}

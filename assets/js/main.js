@@ -70,12 +70,18 @@
 							return;
 
 					// Deactivate all links.
-						$nav_a.removeClass('active');
+						$nav_a.removeClass('active').removeAttr('aria-current');
 
 					// Activate link *and* lock it (so Scrollex doesn't try to activate other links as we're scrolling to this one's section).
 						$this
 							.addClass('active')
+							.attr('aria-current', 'location')
 							.addClass('active-locked');
+
+					// Move keyboard navigation to the selected section without interrupting scrolling.
+						var $destination = $($this.attr('href'));
+						if ($destination.length)
+							$destination.attr('tabindex', '-1')[0].focus({ preventScroll: true });
 
 				})
 				.each(function() {
@@ -107,8 +113,8 @@
 								// No locked links? Deactivate all links and activate this section's one.
 									if ($nav_a.filter('.active-locked').length == 0) {
 
-										$nav_a.removeClass('active');
-										$this.addClass('active');
+										$nav_a.removeClass('active').removeAttr('aria-current');
+										$this.addClass('active').attr('aria-current', 'location');
 
 									}
 
@@ -124,7 +130,7 @@
 		// Title Bar.
 			$titleBar = $(
 				'<div id="titleBar">' +
-					'<a href="#header" class="toggle"></a>' +
+					'<a href="#header" class="toggle" role="button" aria-label="Abrir menú" aria-controls="header" aria-expanded="false"></a>' +
 					'<span class="title">' + $('#logo').html() + '</span>' +
 				'</div>'
 			)
@@ -135,6 +141,7 @@
 				.panel({
 					delay: 500,
 					hideOnClick: true,
+					hideOnEscape: true,
 					hideOnSwipe: true,
 					resetScroll: true,
 					resetForms: true,
@@ -143,9 +150,47 @@
 					visibleClass: 'header-visible'
 				});
 
+		// Keep the mobile disclosure and keyboard focus in sync on every close path.
+			var $toggle = $titleBar.find('.toggle');
+			function syncPanel() {
+				var mobile = breakpoints.active('<=medium'),
+					open = mobile && $body.hasClass('header-visible');
+
+				if (!mobile)
+					$body.removeClass('header-visible');
+
+				$toggle.attr('aria-expanded', String(open))
+					.attr('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+
+				if (mobile && !open) {
+					if ($header[0].contains(document.activeElement))
+						$toggle[0].focus({ preventScroll: true });
+					$header.attr('inert', '').attr('aria-hidden', 'true');
+				} else {
+					$header.removeAttr('inert aria-hidden');
+					if (document.activeElement === $toggle[0])
+						$nav_a[0].focus({ preventScroll: true });
+				}
+			}
+
+			$header.on('panelchange', syncPanel);
+			breakpoints.on('<=medium', syncPanel);
+			breakpoints.on('>medium', syncPanel);
+			$toggle.on('keydown', function(event) {
+				if (event.key === ' ') {
+					event.preventDefault();
+					$(this).trigger('click');
+				}
+			});
+			$(document).on('focusin', function(event) {
+				if (breakpoints.active('<=medium') && $body.hasClass('header-visible')
+					&& !$header[0].contains(event.target) && event.target !== $toggle[0])
+					$header._hide();
+			});
+
 	// Scrolly.
 		$('.scrolly').scrolly({
-			speed: 1000,
+			speed: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1000,
 			offset: function() {
 
 				if (breakpoints.active('<=medium'))

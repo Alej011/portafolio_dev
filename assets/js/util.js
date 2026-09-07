@@ -117,6 +117,7 @@
 
 					// Hide.
 						config.target.removeClass(config.visibleClass);
+						$this.trigger('panelchange');
 
 					// Post-hide stuff.
 						window.setTimeout(function() {
@@ -260,7 +261,7 @@
 					event.preventDefault();
 					event.stopPropagation();
 
-					config.target.removeClass(config.visibleClass);
+					$this._hide();
 
 				});
 
@@ -278,6 +279,7 @@
 					event.stopPropagation();
 
 					config.target.toggleClass(config.visibleClass);
+					$this.trigger('panelchange');
 
 				});
 
