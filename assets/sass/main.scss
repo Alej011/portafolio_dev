@@ -5,7 +5,7 @@
 @import 'libs/breakpoints';
 @import 'libs/html-grid';
 @import url('fontawesome-all.min.css');
-@import url("https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic|Source+Code+Pro:400");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;600&display=swap");
 
 /*
 	Read Only by HTML5 UP
@@ -1265,29 +1265,32 @@
 			ul {
 				list-style: none;
 				margin: 0;
-				padding: 0;
+				padding: 0.75em 1em;
 
 				li {
-					border-top: solid _size(border-width) _palette(header, border);
+					border: 0;
 					display: block;
+					margin: 0.35em 0;
 					padding: 0;
 
 					a {
-						@include vendor('transition', 'none');
+						@include vendor('transition', ('background-color #{_duration(transition)} ease-in-out', 'box-shadow #{_duration(transition)} ease-in-out'));
+						border-radius: 10px;
 						border: 0;
 						color: _palette(header, fg-bold) !important;
 						display: block;
 						padding: 0.85em 0;
 						text-decoration: none;
 
-						&.active {
-							background: _palette(bg);
-							color: _palette(header, bg) !important;
+						&:hover {
+							background: rgba(255, 255, 255, 0.08);
 						}
-					}
 
-					&:first-child {
-						border-top: 0;
+						&.active {
+							background: rgba(255, 255, 255, 0.16);
+							box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+							color: _palette(header, fg-bold) !important;
+						}
 					}
 				}
 			}
@@ -1910,7 +1913,7 @@
 	}
 
 	i {
-		color: #27a98a;
+		color: _palette(accent1, bg);
 		font-size: 1.05em;
 		text-align: center;
 		width: 1.15em;
@@ -2126,5 +2129,358 @@ a:focus-visible,
 		animation: none !important;
 		transition: none !important;
 		scroll-behavior: auto !important;
+	}
+}
+
+
+/* Portfolio color palette */
+:root {
+	--color-bg: #f8fbff;
+	--color-surface: #ffffff;
+	--color-surface-muted: #eff6ff;
+	--color-text: #334155;
+	--color-text-strong: #0f172a;
+	--color-text-subtle: #64748b;
+	--color-border: #dbeafe;
+	--color-border-strong: #cbd5e1;
+	--color-primary: #2563eb;
+	--color-primary-hover: #1d4ed8;
+	--color-primary-active: #1e40af;
+	--color-primary-soft: #eff6ff;
+	--color-accent: #06b6d4;
+	--color-secondary: #64748b;
+	--color-secondary-hover: #475569;
+	--color-secondary-active: #334155;
+	--color-sidebar: #1e40af;
+	--color-sidebar-text: #dbeafe;
+	--color-sidebar-muted: #bfdbfe;
+	--color-sidebar-border: #3b82f6;
+}
+
+body {
+	background: var(--color-bg);
+	color: var(--color-text);
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6,
+strong, b,
+label,
+legend {
+	color: var(--color-text-strong);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	letter-spacing: -0.025em;
+}
+
+header p,
+#copy-email-status {
+	color: var(--color-text-subtle);
+}
+
+header.major h2 {
+	color: var(--color-primary);
+	font-weight: 700;
+	letter-spacing: -0.045em;
+}
+
+header.major h2 + p {
+	color: var(--color-text-strong);
+}
+
+a:hover {
+	color: var(--color-primary);
+}
+
+code {
+	background: var(--color-secondary-active);
+	color: var(--color-surface);
+}
+
+blockquote {
+	border-left-color: var(--color-border-strong);
+}
+
+hr,
+.features article,
+#main > section {
+	border-color: var(--color-border);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select,
+textarea {
+	background-color: var(--color-surface);
+	border-color: var(--color-border-strong);
+	color: var(--color-text);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+	border-color: var(--color-primary);
+}
+
+select option {
+	background: var(--color-surface);
+	color: var(--color-text-strong);
+}
+
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+	color: var(--color-text);
+}
+
+input[type="checkbox"] + label::before,
+input[type="radio"] + label::before {
+	background: var(--color-surface-muted);
+	border-color: var(--color-border-strong);
+}
+
+input[type="checkbox"]:checked + label::before,
+input[type="radio"]:checked + label::before {
+	background: var(--color-secondary);
+	border-color: var(--color-secondary);
+	color: var(--color-surface);
+}
+
+input[type="checkbox"]:focus + label::before,
+input[type="radio"]:focus + label::before {
+	border-color: var(--color-primary);
+}
+
+::placeholder {
+	color: var(--color-text-subtle) !important;
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+.button {
+	background-color: var(--color-secondary);
+	color: var(--color-surface) !important;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:hover {
+	background-color: var(--color-secondary-hover);
+	color: var(--color-surface) !important;
+}
+
+input[type="submit"]:active,
+input[type="reset"]:active,
+input[type="button"]:active,
+.button:active {
+	background-color: var(--color-secondary-active);
+}
+
+input[type="submit"].alt,
+input[type="reset"].alt,
+input[type="button"].alt,
+.button.alt {
+	background-color: transparent;
+	box-shadow: inset 0 0 0 2px var(--color-border-strong);
+	color: var(--color-text-strong) !important;
+}
+
+input[type="submit"].alt:hover,
+input[type="reset"].alt:hover,
+input[type="button"].alt:hover,
+.button.alt:hover {
+	background-color: var(--color-surface-muted);
+	color: var(--color-text-strong) !important;
+}
+
+input[type="submit"].primary,
+input[type="reset"].primary,
+input[type="button"].primary,
+.button.primary {
+	background-color: var(--color-primary);
+	color: var(--color-surface) !important;
+}
+
+input[type="submit"].primary:hover,
+input[type="reset"].primary:hover,
+input[type="button"].primary:hover,
+.button.primary:hover {
+	background-color: var(--color-primary-hover);
+}
+
+input[type="submit"].primary:active,
+input[type="reset"].primary:active,
+input[type="button"].primary:active,
+.button.primary:active {
+	background-color: var(--color-primary-active);
+}
+
+#wrapper {
+	background: var(--color-bg);
+}
+
+#header {
+	background: var(--color-sidebar);
+	color: var(--color-sidebar-text);
+}
+
+#header h1,
+#header h2,
+#header h3,
+#header h4,
+#header h5,
+#header h6,
+#header h1 a,
+#header h2 a,
+#header h3 a,
+#header h4 a,
+#header h5 a,
+#header h6 a,
+#header > nav ul li a {
+	color: var(--color-surface) !important;
+}
+
+#header a,
+#header > header p {
+	color: var(--color-sidebar-text);
+}
+
+#header > header p {
+	font-style: normal;
+	line-height: 1.65;
+}
+
+#header header p,
+#header > footer .icons li a {
+	color: var(--color-sidebar-muted);
+}
+
+#header > nav ul {
+	padding: 0.75em 1em;
+}
+
+#header > nav ul li {
+	border: 0;
+	margin: 0.35em 0;
+}
+
+#header > nav ul li a {
+	border-radius: 10px;
+	transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+#header > nav ul li a:hover {
+	background: rgba(255, 255, 255, 0.08);
+}
+
+#header > nav ul li a.active {
+	background: rgba(255, 255, 255, 0.16);
+	box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+	color: var(--color-surface) !important;
+}
+
+#titleBar {
+	background: var(--color-sidebar);
+	color: var(--color-surface);
+}
+
+#titleBar .title {
+	color: var(--color-surface);
+}
+
+#titleBar .toggle::before {
+	background: var(--color-primary);
+	color: var(--color-surface);
+}
+
+#footer {
+	background: var(--color-surface-muted);
+	color: var(--color-text-subtle);
+}
+
+#footer .copyright li {
+	border-color: var(--color-border-strong);
+}
+
+.technology-card,
+.project-card,
+.project-dialog {
+	background: var(--color-surface);
+	border-color: var(--color-border);
+}
+
+.technology-list li {
+	background: var(--color-bg);
+	border-color: var(--color-border);
+	color: var(--color-secondary);
+}
+
+.technology-list i {
+	color: var(--color-primary);
+}
+
+.project-card-image,
+.project-tech-list li,
+.project-dialog > img {
+	background: var(--color-surface-muted);
+}
+
+.project-tech-list li {
+	color: var(--color-secondary);
+}
+
+.project-dialog {
+	color: var(--color-text);
+}
+
+.project-dialog::backdrop {
+	background: rgba(15, 23, 42, 0.78);
+}
+
+.project-dialog-close {
+	background: var(--color-sidebar);
+	color: var(--color-surface);
+}
+
+a:focus-visible,
+.project-dialog-close:focus-visible,
+.project-details-button:focus-visible,
+#show-more-projects:focus-visible {
+	outline-color: var(--color-primary);
+}
+
+#header a:focus-visible,
+#titleBar .toggle:focus-visible {
+	outline-color: var(--color-accent);
+}
+
+.typing-cursor {
+	animation: typing-cursor-blink 0.8s steps(1, end) infinite;
+	background: var(--color-primary);
+	border-radius: 999px;
+	display: none;
+	height: 1em;
+	margin-left: 0.12em;
+	vertical-align: -0.08em;
+	width: 3px;
+}
+
+.typing-intro.is-typing .typing-cursor {
+	display: inline-block;
+}
+
+@keyframes typing-cursor-blink {
+	0%, 45% {
+		opacity: 1;
+	}
+
+	50%, 100% {
+		opacity: 0;
 	}
 }

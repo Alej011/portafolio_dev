@@ -59,6 +59,39 @@
 		// Nav.
 			var $nav_a = $nav.find('a');
 
+			function syncHeaderScroll($link) {
+				if (!$link.length || breakpoints.active('<=medium'))
+					return;
+
+				var header = $header[0],
+					link = $link[0],
+					targetScroll;
+
+				if (link === $nav_a.first()[0])
+					targetScroll = 0;
+				else {
+					var headerRect = header.getBoundingClientRect(),
+						linkRect = link.getBoundingClientRect();
+
+					targetScroll = header.scrollTop
+						+ linkRect.top - headerRect.top
+						- ((header.clientHeight - linkRect.height) / 2);
+				}
+
+				targetScroll = Math.max(0, Math.min(
+					targetScroll,
+					header.scrollHeight - header.clientHeight
+				));
+
+				if (Math.abs(header.scrollTop - targetScroll) < 2)
+					return;
+
+				if (window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+					header.scrollTop = targetScroll;
+				else
+					$header.stop(true).animate({ scrollTop: targetScroll }, 300);
+			}
+
 			$nav_a
 				.addClass('scrolly')
 				.on('click', function() {
@@ -77,6 +110,8 @@
 							.addClass('active')
 							.attr('aria-current', 'location')
 							.addClass('active-locked');
+
+						syncHeaderScroll($this);
 
 					// Move keyboard navigation to the selected section without interrupting scrolling.
 						var $destination = $($this.attr('href'));
@@ -121,6 +156,8 @@
 								// Otherwise, if this section's link is the one that's locked, unlock it.
 									else if ($this.hasClass('active-locked'))
 										$this.removeClass('active-locked');
+
+									syncHeaderScroll($nav_a.filter('.active').first());
 
 							}
 						});
@@ -231,6 +268,39 @@
 					showCopyEmailStatus(copyEmailFallback(email) ? 'Correo copiado.' : 'No se pudo copiar el correo.');
 				}
 			});
+
+	// Intro typing effect.
+		var $typingIntro = $('.typing-intro'),
+			$typingText = $typingIntro.find('[data-typing-text]');
+
+		if ($typingText.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			var introText = $typingText.text(),
+				introIndex = 0;
+
+			$typingIntro.css('min-height', $typingIntro[0].getBoundingClientRect().height);
+			$typingText.text('');
+			$typingIntro.addClass('is-typing');
+
+			function typeIntroCharacter() {
+				introIndex += 1;
+				$typingText.text(introText.substring(0, introIndex));
+
+				if (introIndex < introText.length) {
+					var character = introText.charAt(introIndex - 1),
+						delay = /[.,!?]/.test(character) ? 220 : (character === ' ' ? 18 : 42);
+
+					window.setTimeout(typeIntroCharacter, delay);
+				} else {
+					$typingIntro.addClass('is-complete');
+					window.setTimeout(function() {
+						$typingIntro.removeClass('is-typing').css('min-height', '');
+					}, 1200);
+				}
+			}
+
+			window.setTimeout(typeIntroCharacter, 450);
+		} else
+			$typingIntro.addClass('is-complete');
 
 	// Scrolly.
 		$('.scrolly').scrolly({
