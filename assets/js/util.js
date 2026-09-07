@@ -157,6 +157,13 @@
 							if (!href || href == '#' || href == '' || href == '#' + id)
 								return;
 
+							// Keep mail and telephone links as native user gestures.
+							if (href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0
+							|| href.indexOf('https://mail.google.com/') === 0) {
+								$this._hide();
+								return;
+							}
+
 							// Cancel original event.
 								event.preventDefault();
 								event.stopPropagation();
