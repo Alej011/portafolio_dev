@@ -126,40 +126,28 @@
 										A lo largo de mi aprendizaje he desarrollado diversos proyectos personales que combinan programación, electrónica e innovación. 
 										Cada uno de ellos ha sido una oportunidad para aplicar mis conocimientos, resolver problemas reales y seguir mejorando mis habilidades técnicas.
 									</p>
-									<div class="features">
-										<article>
-											<a href="https://empiremusicfestival.netlify.app/" target="_blank" rel="noopener noreferrer" class="image"><img src="images/image-poryect1.png" alt="Ver Festival de Música Electrónica (abre en otra pestaña)" width="1875" height="826" loading="lazy" decoding="async" /></a>
-											<div class="inner">
-												<h4>Landing Page para Festival de Música Electrónica</h4>
-												<p>Sitio web responsivo inspirado en el Ultra Music Festival. Incluye secciones de artistas, galería y precios de entradas. Desarrollado con HTML, CSS, JavaScript, Sass y automatizado con Gulp.</p>
-											</div>
-										</article>
-										<article>
-											<a href="https://blogdecafe-codeteam.netlify.app/" target="_blank" rel="noopener noreferrer" class="image"><img src="images/image-proyect2.png" alt="Ver Blog de Café (abre en otra pestaña)" width="1897" height="789" loading="lazy" decoding="async" /></a>
-											<div class="inner">
-												<h4>Blog de Café</h4>
-												<p>Página tipo blog enfocada en consejos y cursos sobre café. Contiene navegación moderna y diseño limpio ideal para proyectos editoriales o de contenido. Maquetación con HTML y CSS puro.</p>
-											</div>
-										</article>
-										<article>
-											<a href="https://guitarsite.netlify.app/" target="_blank" rel="noopener noreferrer" class="image"><img src="images/image-proyect3.png" alt="Ver GuitarSite (abre en otra pestaña)" width="1893" height="811" loading="lazy" decoding="async" /></a>
-											<div class="inner">
-												<h4>GuitarSite</h4>
-												<p>Proyecto de tienda online creado con React y manejo de estado mediante Hooks. Incluye un carrito de compras que almacena la información en el localStorage del navegador. Simula una experiencia real de e-commerce con diseño moderno y componentes reutilizables.</p>
-											</div>
-										</article>
-										<article>
-											<a href="https://invernaderoapp.netlify.app/" target="_blank" rel="noopener noreferrer" class="image"><img src="images/image-proyect4.png" alt="Ver Invernadero IoT (abre en otra pestaña)" width="1594" height="831" loading="lazy" decoding="async" /></a>
-											<div class="inner">
-												<h4>Invernadero IoT</h4>
-												<p>Plataforma web para monitoreo y control de un invernadero inteligente, desarrollada con HTML, CSS y JavaScript puro.
-													La interfaz consume rutas HTTP directamente desde un ESP32 que actúa como servidor local, entregando datos en tiempo real de sensores y permitiendo la activación de actuadores conectados al dispositivo.
-													Paralelamente, una API desarrollada en Express.js, desplegada en Docker con Nginx, permite almacenar los datos históricos en una base de datos PostgreSQL y proporciona funciones de autenticación (en desarrollo).
-													Este enfoque permite separar la lógica embebida del hardware con la persistencia de datos y la interfaz de usuario, haciendo el sistema modular y escalable.	
-												</p>
-											</div>
-										</article>
+									<div class="project-grid" id="projects-grid"></div>
+									<div class="project-controls">
+										<button type="button" class="button" id="show-more-projects" hidden>Mostrar más proyectos</button>
+										<span id="projects-status" class="sr-only" role="status" aria-live="polite"></span>
 									</div>
+									<noscript>
+										<p>Activa JavaScript para consultar las tarjetas y los detalles de los proyectos.</p>
+									</noscript>
+
+									<dialog class="project-dialog" id="project-dialog" aria-labelledby="project-dialog-title">
+										<button type="button" class="project-dialog-close" id="project-dialog-close" aria-label="Cerrar detalles del proyecto">&times;</button>
+										<img id="project-dialog-image" alt="" width="1200" height="600" />
+										<div class="project-dialog-content">
+											<h3 id="project-dialog-title"></h3>
+											<ul class="project-tech-list" id="project-dialog-technologies" aria-label="Tecnologías utilizadas"></ul>
+											<div id="project-dialog-description"></div>
+											<div class="project-actions project-dialog-actions">
+												<a class="button primary small icon solid fa-external-link-alt" id="project-dialog-demo" href="#" target="_blank" rel="noopener noreferrer">Ver demo</a>
+												<a class="button small icon brands fa-github" id="project-dialog-code" aria-disabled="true">Ver código</a>
+											</div>
+										</div>
+									</dialog>
 								</div>
 							</section>
 
@@ -216,6 +204,7 @@
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
+			<script src="assets/js/projects.js"></script>
 			<script src="assets/js/main.js"></script>
 
 	</body>

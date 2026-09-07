@@ -53,6 +53,32 @@ configuración automatizada para recompilar `assets/sass/main.scss`.
 También puedes abrir `index.html` directamente, aunque un servidor local permite
 probar el sitio en un entorno más cercano al de producción.
 
+## Agregar proyectos
+
+Los proyectos se administran desde `assets/js/projects.js`. Para agregar uno,
+copia uno de los objetos del arreglo `projects` y actualiza su título, imagen,
+resumen, descripción, tecnologías y enlaces.
+
+El campo `demoUrl` contiene la demostración publicada. El campo `codeUrl` contiene
+el repositorio y puede permanecer vacío mientras el código no sea público:
+
+```javascript
+{
+	title: 'Nombre del proyecto',
+	image: 'images/mi-proyecto.png',
+	width: 1200,
+	height: 600,
+	summary: 'Descripción corta para la tarjeta.',
+	description: ['Descripción completa del proyecto.'],
+	technologies: ['HTML5', 'CSS3', 'JavaScript'],
+	demoUrl: 'https://ejemplo.netlify.app/',
+	codeUrl: ''
+}
+```
+
+La galería presenta cuatro proyectos inicialmente y activa automáticamente el
+botón «Mostrar más proyectos» cuando existen proyectos adicionales.
+
 ## Modificaciones realizadas
 
 - Se sustituyó el contenido original de la plantilla por la presentación personal
